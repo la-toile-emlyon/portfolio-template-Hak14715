@@ -98,16 +98,19 @@ fetch('data.json')
 
     // TODO : forEach sur data.competences
 
-    let phrase = <div class="competence-card">
-          <h3>titre</h3>
-          <p>description</p>
-       <div class="tags"> genererTags(...) </div>
-      </div>
+    
+
     data.competences.forEach(competence => {
-      
+    let phrase = `
+        <div class="competence-card">
+          <h3>${data.competences.titre}</h3>
+          <p>${data.competences.description}</p>
+       <div class="tags"> ${data.competences.tags} </div>
+      </div>`
       
 
     });
+
     // Pour chaque compétence, construire ce HTML et l'injecter :
     //
     // <div class="competence-card">
