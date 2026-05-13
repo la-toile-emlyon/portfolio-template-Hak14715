@@ -9,7 +9,8 @@ fetch('data.json')
   .then(function(reponse) {
     return reponse.json(); // convertit la réponse en objet JavaScript
   })
-  .then(function(data) {
+  .then(function(data) 
+  {
 
     // À partir d'ici, data contient tout le contenu de data.json
     // ex : data.logo / data.nav / data.hero / data.projets ...
@@ -42,17 +43,25 @@ fetch('data.json')
     // Génère les <span class="tag"> à partir d'un tableau de tags
     // Exemple : genererTags(["HTML", "CSS"])
     // Résultat : '<span class="tag">HTML</span><span class="tag">CSS</span>'
+
     function genererTags(tags) {
       let html = '';
       // TODO : forEach sur tags → construire les <span class="tag">
+      tags.forEach(tag => {
+        html += `<span class="tag">${tag}</span>`
+      });
       return html;
     }
 
     // Génère les <li><a> à partir du tableau data.nav
     // Exemple : genererLiens(data.nav)
+
     function genererLiens(liens) {
       let html = '';
       // TODO : forEach sur liens → construire les <li><a href="...">...</a></li>
+      liens.forEach(lien => {
+        html += `<li><a href="${lien.href}">${lien.label}</a></li>`
+      });
       return html;
     }
 
@@ -62,9 +71,14 @@ fetch('data.json')
     // --------------------------------------------------
 
     // TODO : remplir le logo        → logoNav.textContent = ...
+    logoNav.textContent = data.logo;
     // TODO : injecter les liens     → liensNav.innerHTML  = genererLiens(...)
+    liensNav.innerHTML = genererLiens(data.nav);
+    
     // TODO : remplir le bouton CTA  → ctaNav.textContent  = ...
     //                                 ctaNav.href          = ...
+    ctaNav.textContent = data.cta.label
+    ctaNav.href = data.cta.href;
 
 
     // --------------------------------------------------
@@ -74,14 +88,26 @@ fetch('data.json')
     // Le titre contient un mot en italique (balise <em>)
     // On utilise innerHTML pour pouvoir insérer des balises HTML
     // TODO : heroTitre.innerHTML = `${data.hero.titre} <em>${...}</em><br>${...}`
+    heroTitre.innerHTML = `${data.hero.titre} <em>${data.hero.accent}</em><br>${data.hero.suite}`
     // TODO : heroSousTitre.textContent = ...
-
+    heroSousTitre.textContent = data.hero.sousTitre
 
     // --------------------------------------------------
     //  COMPÉTENCES
     // --------------------------------------------------
 
     // TODO : forEach sur data.competences
+
+    let phrase = <div class="competence-card">
+          <h3>titre</h3>
+          <p>description</p>
+       <div class="tags"> genererTags(...) </div>
+      </div>
+    data.competences.forEach(competence => {
+      
+      
+
+    });
     // Pour chaque compétence, construire ce HTML et l'injecter :
     //
     // <div class="competence-card">
