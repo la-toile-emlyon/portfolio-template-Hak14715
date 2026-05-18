@@ -103,11 +103,11 @@ fetch('data.json')
     data.competences.forEach(competence => {
     let phrase = `
         <div class="competence-card">
-          <h3>${data.competences.titre}</h3>
-          <p>${data.competences.description}</p>
-       <div class="tags"> ${data.competences.tags} </div>
-      </div>`
-      
+          <h3>${competence.titre}</h3>
+          <p>${competence.description}</p>
+       <div class="tags">${genererTags(competence.tags)} </div>`
+
+      sectionCompetences.insertAdjacentHTML('beforeend', phrase)
 
     });
 
@@ -147,7 +147,27 @@ fetch('data.json')
     // </article>
     //
     // → sectionProjets.insertAdjacentHTML('beforeend', carte)
-
+let projets = data.projets;
+projets.forEach(projet => {
+  let carte = `
+  <article class="projet-card">
+       <div class="projet-content">
+         <div class="projet-top">
+           <h3>${projet.titre}</h3>
+           <div class="tags"> ${genererTags(projet.tags)} </div>
+         </div>
+         <div class="projet-bottom">
+           <p>${projet.description}</p>
+           <a href="lien" class="btn-projet">${projet.lien}</a>
+         </div>
+       </div>
+       <div class="projet-image">
+         <img src="${projet.image}" alt="titre">
+       </div>
+     </article>
+  `
+  sectionProjets.insertAdjacentHTML('beforeend', carte)
+});
 
     // --------------------------------------------------
     //  PARCOURS
@@ -162,7 +182,17 @@ fetch('data.json')
     // </li>
     //
     // → listeParcours.insertAdjacentHTML('beforeend', item)
+let parcours = data.parcours;
 
+parcours.forEach(etape => {
+  let item = `
+     <li class="parcours-item">
+       <p class="parcours-titre">${etape.annee} - ${etape.titre}</p>
+       <p class="parcours-lieu">${etape.lieu}</p>
+     </li>
+  `
+  listeParcours.insertAdjacentHTML('beforeend', item)
+});
 
     // --------------------------------------------------
     //  FOOTER — même logique que la nav
@@ -172,5 +202,13 @@ fetch('data.json')
     // TODO : liensFooter.innerHTML   = genererLiens(...)
     // TODO : ctaFooter.textContent   = ...
     //        ctaFooter.href          = ...
+
+    logoFooter.textContent = data.logo;
+    
+    liensFooter.innerHTML = genererLiens(data.nav);
+    
+    
+    ctaFooter.textContent = data.cta.label
+    ctaFooter.href = data.cta.href;
 
   });
